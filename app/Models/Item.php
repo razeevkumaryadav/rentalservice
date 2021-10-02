@@ -10,6 +10,7 @@ use App\Models\Unit;
 use App\Models\Location;
 use App\Models\Photo;
 use App\Models\ExtraFeature;
+use App\Models\PropertyDetaile;
 class Item extends Model
 {
     use HasFactory;
@@ -42,5 +43,9 @@ class Item extends Model
     public function extrafeatures()
     {
         return $this->hasOne(ExtraFeature::class);
+    }
+    public function propertydetailes()
+    {
+        return $this->hasOne(PropertyDetaile::class);
     }
 }

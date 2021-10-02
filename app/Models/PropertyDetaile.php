@@ -18,5 +18,6 @@ class PropertyDetaile extends Model
     'area',
     'road_size',
     'road_type',
-    'item_id'];
+    'item_id'
+];
 }

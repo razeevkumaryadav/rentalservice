@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class ParkingLot extends Model
 {
     use HasFactory;
+    protected $fillable = ['no_two_wheeler','no_four_wheeler'];
 }

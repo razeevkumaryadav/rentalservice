@@ -17,7 +17,7 @@ class CreateExtraFeaturesTable extends Migration
             $table->id();
             $table->bigInteger('item_id');
             $table->boolean('wifi')->nullable()->default(false);
-            $table->boolean('dringking_water')->nullable()->default(false);
+            $table->boolean('drinking_water')->nullable()->default(false);
             // $table->bigInteger('parking_lot_id')->nullable();
             $table->timestamps();
         });

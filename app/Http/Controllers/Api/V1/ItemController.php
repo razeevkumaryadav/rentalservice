@@ -7,10 +7,11 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 
 use App\Http\Traits\LocationTrait;
+use App\Http\Traits\PhotoTrait;
 
 class ItemController extends Controller
 {
-    use LocationTrait;
+    use LocationTrait,PhotoTrait;
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +19,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return response()->json(['data'=>Item::with('locations','itemtypes')->get()]);
+        return response()->json(['data'=>Item::with('locations','itemtypes','photos','propertydetailes','extrafeatures.parkinglots')->get()]);
     }
 
     /**
@@ -39,8 +40,9 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $locationId = $this->LocationStore($request);
-        $userId = 1;
+        $userId = 1;//This need to replaced with user loge in
         $store = Item::create([
             'name'=>$request->name,
             'item_type_id'=>$request->item_type_id,
@@ -52,6 +54,35 @@ class ItemController extends Controller
              'status'=>$request->status
         ]);
 
+        // storing the property detailes of Realstate
+       $store->propertydetailes()->create([
+                    'no_room'=>$request->noroom,
+                    'no_bed_room'=>$request->nobedroom,
+                    'no_bathroom'=>$request->nobathroom,
+                    'no_living_room'=>$request->nolivingroom,
+                    'storage'=>$request->storage,
+                    'no_kitchen'=>$request->nokitchen,
+                    'area'=>$request->area,
+                    'road_size'=>$request->roadsize,
+                    'road_type'=>$request->roadtype,
+       ]);
+
+    //    storing the extra features of the Realstate
+   $extrafe= $store->extrafeatures()->create([
+        'wifi'=>$request->wifi,
+        'drinking_water'=>$request->drinkingwater
+    ]);
+    // storing parkinglots
+  $extrafe->parkinglots()->create([
+    'no_two_wheeler'=>$request->twowheeler,
+    'no_four_wheeler'=>$request->fourwheeler
+  ]);
+// storing the image
+       if($request->image)
+        {
+         
+            $this->PhotoStore($request,$store);
+         }
         if(!is_null($store))
         return response()->json(['message'=>'Item stored Succecssfully']);
         else

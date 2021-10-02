@@ -20,6 +20,7 @@ class CreatePropertyDetailesTable extends Migration
             $table->string('no_living_room')->nullable();
             $table->string('no_bathroom')->nullable();
             $table->string('no_kitchen')->nullable();
+            // storage of building
             $table->string('storage')->nullable();
             $table->string('area')->nullable();
             $table->string('road_size')->nullable();

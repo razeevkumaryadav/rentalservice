@@ -22,8 +22,9 @@ class CreateLocationsTable extends Migration
             $table->string('zipcode')->nullable();
             $table->string('city');
             $table->string('state');
-            $table->float('longitude');
-            $table->float('latitude');
+            $table->decimal('longitude',8,6);
+            $table->decimal('latitude',8,6);
+            // $table->decimal('foo', 5, 4);
             $table->bigInteger('country_id');
             $table->timestamps();
         });
